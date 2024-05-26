@@ -1,0 +1,22 @@
+steps:
+  - name: gcr.io/cloud-builders/git
+    args:
+      - clone
+      - 'https://github.com/viks1102/gcs-bucket.git'
+    dir: /workspace
+  - name: alpine
+    args:
+      - '-c'
+      - |
+        cd /workspace/gcs-bukcet
+        ls -la  
+    entrypoint: /bin/sh
+  - name: 'hashicorp/terraform:1.0.0'
+    args:
+      - '-c'
+      - |
+        cd /workspace/terraform
+        terraform init
+        terraform plan
+        terraform apply --auto-approve
+    entrypoint: /bin/sh
